@@ -13,7 +13,7 @@ import android.view.MenuItem;
 
 import ac.uiu.messmanagementsystem.databinding.ActivityDashboardBinding;
 import ac.uiu.messmanagementsystem.fragments.HomeFragment;
-import ac.uiu.messmanagementsystem.fragments.MealFragment;
+import ac.uiu.messmanagementsystem.fragments.members.MemberHome;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -26,7 +26,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_dashboard);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_dashboard);
         toolbar = findViewById(R.id.dashboardToolbar);
         setSupportActionBar(toolbar);
         final ActionBar ab = getSupportActionBar();
@@ -39,7 +39,7 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if(item.getItemId() == android.R.id.home){
+        if (item.getItemId() == android.R.id.home) {
             binding.dl.openDrawer(GravityCompat.START);
         }
 
@@ -49,13 +49,12 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        if(menuItem.getItemId() == R.id.nv_item_dailyEx){
+        if (menuItem.getItemId() == R.id.nv_item_dailyEx) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new HomeFragment()).commit();
             binding.dl.closeDrawers();
 
-        }
-        else if(menuItem.getItemId() == R.id.nv_item_meal){
-            getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new MealFragment()).commit();
+        } else if (menuItem.getItemId() == R.id.nv_item_members) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new MemberHome()).commit();
             binding.dl.closeDrawers();
         }
 
