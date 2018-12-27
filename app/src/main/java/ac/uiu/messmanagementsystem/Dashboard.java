@@ -49,11 +49,12 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
 
-        if (menuItem.getItemId() == R.id.nv_item_dailyEx) {
+        if (menuItem.getItemId() == R.id.nv_item_meal) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new HomeFragment()).commit();
             binding.dl.closeDrawers();
 
-        } else if (menuItem.getItemId() == R.id.nv_item_members) {
+        }
+        else if (menuItem.getItemId() == R.id.nv_item_members) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new MemberHome()).commit();
             binding.dl.closeDrawers();
         }
