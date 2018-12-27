@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/dl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".Dashboard">
+
+            <include
+                android:id="@+id/dashboardToolbar"
+                layout="@layout/toolbar">
+            </include>
+
+            <FrameLayout
+                android:id="@+id/frDashboard"
+                android:layout_below="@+id/dashboardToolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </FrameLayout>
+
+        </RelativeLayout>
+
+        <android.support.design.widget.NavigationView
+            android:id="@+id/navigation"
+            android:layout_gravity= "start"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:itemIconTint="#333"
+            app:itemTextColor="@color/primaryTextColor"
+            app:headerLayout="@layout/nv_header"
+            app:menu="@menu/nv_drawer_items">
+
+
+        </android.support.design.widget.NavigationView>
+
+    </android.support.v4.widget.DrawerLayout>
+
+</layout>
