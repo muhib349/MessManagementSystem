@@ -2,6 +2,7 @@ package ac.uiu.messmanagementsystem.fragments.members;
 
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ public class MemberHome extends Fragment {
 
 
     private ListView listView;
+    private FloatingActionButton fab;
 
     public MemberHome() {
         // Required empty public constructor
@@ -39,10 +41,14 @@ public class MemberHome extends Fragment {
         View view = inflater.inflate(R.layout.fragment_member_home, container, false);
 
         listView = view.findViewById(R.id.lv_member);
+        fab = view.findViewById(R.id.fab_member);
 
-        MemberListAdapter adapter = new MemberListAdapter(getActivity(), title, sub_title, img,amoutns);
+        final MemberListAdapter adapter = new MemberListAdapter(getActivity(), title, sub_title, img,amoutns);
         listView.setAdapter(adapter);
+
         return view;
     }
+
+
 
 }

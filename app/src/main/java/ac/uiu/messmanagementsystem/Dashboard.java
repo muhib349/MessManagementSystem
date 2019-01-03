@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import ac.uiu.messmanagementsystem.databinding.ActivityDashboardBinding;
 import ac.uiu.messmanagementsystem.fragments.HomeFragment;
 import ac.uiu.messmanagementsystem.fragments.members.MemberHome;
+import ac.uiu.messmanagementsystem.fragments.profile.ProfileFragment;
 
 public class Dashboard extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -56,6 +57,10 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
         }
         else if (menuItem.getItemId() == R.id.nv_item_members) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new MemberHome()).commit();
+            binding.dl.closeDrawers();
+        }
+        else if(menuItem.getItemId() == R.id.nv_item_profile){
+            getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new ProfileFragment()).commit();
             binding.dl.closeDrawers();
         }
 
