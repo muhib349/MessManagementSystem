@@ -1,5 +1,6 @@
 package ac.uiu.messmanagementsystem;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -9,10 +10,25 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import ac.uiu.messmanagementsystem.databinding.ActivityDashboardBinding;
 import ac.uiu.messmanagementsystem.fragments.HomeFragment;
+import ac.uiu.messmanagementsystem.fragments.dailyexpenses.DailyExpFragment;
 import ac.uiu.messmanagementsystem.fragments.members.MemberHome;
 import ac.uiu.messmanagementsystem.fragments.profile.ProfileFragment;
 
@@ -20,9 +36,47 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
 
     private ActivityDashboardBinding binding;
     private Toolbar toolbar;
-
     private DrawerLayout dl;
     private NavigationView nv;
+    String url = "https://10.10.255.5/mess/mess_info.php";
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Intent intent = getIntent();
+        final String username = intent.getStringExtra("username");
+        final String password = intent.getStringExtra("password");
+        parseMessInfo(username,password);
+    }
+
+    private void parseMessInfo(final String username, final String password) {
+
+
+        JSONObject params = new JSONObject();
+        try {
+            params.put("username",username);
+            params.put("password",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        JsonObjectRequest request2 = new JsonObjectRequest(Request.Method.POST, url, params,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error", error.toString());
+                    }
+                }
+        );
+        GlobalData.getInstance().addToRequestQueue(request2);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,13 +108,14 @@ public class Dashboard extends AppCompatActivity implements NavigationView.OnNav
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new HomeFragment()).commit();
             binding.dl.closeDrawers();
 
-        }
-        else if (menuItem.getItemId() == R.id.nv_item_members) {
+        } else if (menuItem.getItemId() == R.id.nv_item_members) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new MemberHome()).commit();
             binding.dl.closeDrawers();
-        }
-        else if(menuItem.getItemId() == R.id.nv_item_profile){
+        } else if (menuItem.getItemId() == R.id.nv_item_profile) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new ProfileFragment()).commit();
+            binding.dl.closeDrawers();
+        } else if (menuItem.getItemId() == R.id.nv_item_dailyEx) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.frDashboard, new DailyExpFragment()).commit();
             binding.dl.closeDrawers();
         }
 

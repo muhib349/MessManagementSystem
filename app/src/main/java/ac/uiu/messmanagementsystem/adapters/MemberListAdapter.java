@@ -8,44 +8,40 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import ac.uiu.messmanagementsystem.R;
+import ac.uiu.messmanagementsystem.model.MemberModel;
 
-public class MemberListAdapter extends ArrayAdapter<String> {
-    private final Activity context;
-    private final String[] maintitle;
-    private final String[] subtitle;
-    private final Integer[] imgid;
-    private final Integer[] amounts;
+public class MemberListAdapter extends ArrayAdapter<MemberModel> {
+    Activity context;
+    private ArrayList<MemberModel> memberModels;
 
-    public MemberListAdapter(Activity context, String[] maintitle, String[] subtitle, Integer[] imgid,Integer[] amounts) {
-        super(context, R.layout.member_list, maintitle);
+    public MemberListAdapter(ArrayList<MemberModel> memberModels,Activity context) {
+        super(context, android.R.layout.simple_list_item_1,memberModels);
 
         this.context = context;
-        this.maintitle = maintitle;
-        this.subtitle = subtitle;
-        this.imgid = imgid;
-        this.amounts = amounts;
+        this.memberModels = memberModels;
     }
 
 
     @Override
-    public View getView(int position, View view, ViewGroup parent) {
+    public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
 
-        View rowView = inflater.inflate(R.layout.member_list, null, true);
+        View view = inflater.inflate(R.layout.member_list, null, true);
 
-        TextView titleText = (TextView) rowView.findViewById(R.id.tv_title);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.iv_icon);
-        TextView subtitleText = (TextView) rowView.findViewById(R.id.tv_subtitle);
-        TextView amnt = (TextView) rowView.findViewById(R.id.tv_amount);
+        TextView titleText = view.findViewById(R.id.tv_title);
+        ImageView imageView = view.findViewById(R.id.iv_icon);
+        TextView phoneText = view.findViewById(R.id.tv_phone);
+        TextView email = view.findViewById(R.id.tv_email);
+        TextView balance = view.findViewById(R.id.tv_amount);
 
-        titleText.setText(maintitle[position]);
-        imageView.setImageResource(imgid[position]);
-        subtitleText.setText(subtitle[position]);
-        amnt.setText(amounts[position].toString());
-
-        return rowView;
+        titleText.setText(memberModels.get(position).getName());
+        imageView.setImageResource(memberModels.get(position).getImg());
+        phoneText.setText(memberModels.get(position).getPhone());
+        email.setText(memberModels.get(position).getEmail());
+        balance.setText(memberModels.get(position).getBalance().toString());
+        return view;
     }
-
-    ;
 }

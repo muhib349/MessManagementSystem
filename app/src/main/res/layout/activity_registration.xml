@@ -30,7 +30,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:src="@drawable/logo" />
+                android:src="@drawable/logo2" />
 
             <EditText
                 android:hint="Mess Title"
